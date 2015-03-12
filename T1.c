@@ -45,10 +45,27 @@ void le_alunos(int* matriculas, char** nomes, int* n)
 
 int main(int argc, char **argv)
 {
-    int matriculas[50];
-    char nomes[50][50];
-    int n;
+    int matriculas[50], mat_notas[50], medias[50];
+    char nomes[50][50], nome[50];
+    int n, i, mat = 0, aux = 0;
+    float media;
     le_alunos(matriculas, nomes, &n);
+    le_notas(mat_notas, medias, n); //ler o arquivo de notas e salvar a matricula relacionada com a media (abrir e fechar arquivo na funcao
+    printf("Escreva o nome a ser buscado:\n");
+    scanf("%s", &nome); //alterar para argv, para passar como argumento
+    for(i=0;i<n;i++)
+    {
+        mat = verifica_mat(i, matriculas, nome);
+        if(mat != aux)
+        {
+            media = busca_media(i, medias);
+            imprime(media, i);
+            aux = mat;
+        }
+
+    }
+
+
 }
 
 
@@ -57,3 +74,4 @@ int main(int argc, char **argv)
 // feof verifica final do arquivo e retorna 0 se for if(feof(f) == 0) é final do arquivo
 // fscanf
 // strcmp compara string(letras, lexicamente) retorna 1 se o primeiro argumento for maior que o outro
+// strstr(s1, s2) se s2 esta contido em s1 retorna diferente de NULL
