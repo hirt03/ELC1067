@@ -5,7 +5,7 @@
 int le_alunos(int matriculas[], char nomes[][50])
 {
     FILE *f = fopen("alunos.txt", "r");
-    int mat, i, linha = 0, aux;
+    int mat, i, linha = 0;
     char c = ' ', nome[50];
     while(c != EOF)
     {
@@ -62,7 +62,7 @@ main(int argc, char *argv[])
 {
     int matriculas[50], n;
     char nomes[50][50], nome[50];
-    float media, medias[50];
+    float medias[50];
     n = le_alunos(matriculas, nomes);
     le_notas(medias, n);
     busca_mat(n, medias, nomes, argv[1]);
