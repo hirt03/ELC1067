@@ -58,12 +58,10 @@ int busca_mat(int n,float medias[50],char nomes[][50],char nome[50])
     }
 }
 
-
 main(int argc, char *argv[])
 {
-    int matriculas[50];
+    int matriculas[50], n;
     char nomes[50][50], nome[50];
-    int n, mat = 0, aux = 0;
     float media, medias[50];
     n = le_alunos(matriculas, nomes);
     le_notas(medias, n);
