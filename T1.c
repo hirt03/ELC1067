@@ -42,15 +42,31 @@ void le_alunos(int* matriculas, char** nomes, int* n)
     fclose(f);
 }
 
+void le_notas(int* medias, int n)
+{
+    FILE *f(fopen("notas.txt", "r"));
+    int i = 0, mat;
+    float nota1, nota2, media;
+    while(i != n)
+    {
+        scanf("%d %f %f", &mat, &nota1, &nota2);
+        medias[i] = (nota1+nota2)/2;
+        i++;
+    }
+    fclose(f);
+
+}
+
+
 
 int main(int argc, char **argv)
 {
-    int matriculas[50], mat_notas[50], medias[50];
+    int matriculas[50], medias[50];
     char nomes[50][50], nome[50];
     int n, i, mat = 0, aux = 0;
     float media;
     le_alunos(matriculas, nomes, &n);
-    le_notas(mat_notas, medias, n); //ler o arquivo de notas e salvar a matricula relacionada com a media (abrir e fechar arquivo na funcao
+    le_notas(medias, n); //ler o arquivo de notas e salvar a matricula relacionada com a media (abrir e fechar arquivo na funcao
     printf("Escreva o nome a ser buscado:\n");
     scanf("%s", &nome); //alterar para argv, para passar como argumento
     for(i=0;i<n;i++)
