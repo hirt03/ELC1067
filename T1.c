@@ -1,55 +1,44 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 
-/*int main(int argc, char **argv)        EXEMPLO VERIFICAÇÃO DE ARGUMENTO
-{
-    char *nome;
-    if(argc>1)
-    {
-        nome = argv[1];
-    }
-    printf("%s\n", nome);
-    return 0;
-}*/
-
-/* mximo 50 nomes por arquivo */
-
-void le_alunos(int* matriculas, char** nomes, int* n)
+int le_alunos(int matriculas[], char nomes[][50])
 {
     FILE *f = fopen("alunos.txt", "r");
-    int mat, i = 0, linha = 0;
-    char c, nome[50];
-    while(feof(f) != 0)
+    int mat, i, linha = 0, aux;
+    char c = ' ', nome[50];
+    while(c != EOF)
     {
         fscanf(f, "%d", &mat);
         c = fgetc(f);
+        i = 0;
         while(c == ' ')
         {
             c = fgetc(f);
         }
-        while(c != '\n')
+        while(c != '\n' && c != EOF)
         {
             nome[i] = c;
             c = fgetc(f);
-            i++;
+             i++;
         }
-        nome[i] = '\o';
+        nome[i] = '\0';
         matriculas[linha] = mat;
         strcpy(nomes[linha], nome);
         linha++;
     }
-    n = linha;
     fclose(f);
+    return (linha-1);
 }
 
-void le_notas(int* medias, int n)
+void le_notas(float medias[], int n)
 {
-    FILE *f(fopen("notas.txt", "r"));
+    FILE *f = (fopen("notas.txt", "r"));
     int i = 0, mat;
     float nota1, nota2, media;
-    while(i != n)
+    while(i<n)
     {
-        scanf("%d %f %f", &mat, &nota1, &nota2);
+        fscanf(f, "%d %f %f\n", &mat, &nota1, &nota2);
         medias[i] = (nota1+nota2)/2;
         i++;
     }
@@ -57,37 +46,27 @@ void le_notas(int* medias, int n)
 
 }
 
-
-
-int main(int argc, char **argv)
+int busca_mat(int n,float medias[50],char nomes[][50],char nome[50])
 {
-    int matriculas[50], medias[50];
-    char nomes[50][50], nome[50];
-    int n, i, mat = 0, aux = 0;
-    float media;
-    le_alunos(matriculas, nomes, &n);
-    le_notas(medias, n); //ler o arquivo de notas e salvar a matricula relacionada com a media (abrir e fechar arquivo na funcao
-    printf("Escreva o nome a ser buscado:\n");
-    scanf("%s", &nome); //alterar para argv, para passar como argumento
+    int i;
     for(i=0;i<n;i++)
     {
-        mat = verifica_mat(i, matriculas, nome);
-        if(mat != aux)
+        if((strstr(nomes[i], nome)) != NULL)
         {
-            media = busca_media(i, medias);
-            imprime(media, i);
-            aux = mat;
+            printf("%s %.2f\n", nomes[i], medias[i]);
         }
-
     }
-
-
 }
 
 
-// fopen/fclose
-// fgetc = le caracter por caracter
-// feof verifica final do arquivo e retorna 0 se for if(feof(f) == 0) é final do arquivo
-// fscanf
-// strcmp compara string(letras, lexicamente) retorna 1 se o primeiro argumento for maior que o outro
-// strstr(s1, s2) se s2 esta contido em s1 retorna diferente de NULL
+main(int argc, char *argv[])
+{
+    int matriculas[50];
+    char nomes[50][50], nome[50];
+    int n, mat = 0, aux = 0;
+    float media, medias[50];
+    int i;
+    n = le_alunos(matriculas, nomes);
+    le_notas(medias, n);
+    busca_mat(n, medias, nomes, argv[1]);
+    }
