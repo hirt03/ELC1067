@@ -65,7 +65,6 @@ main(int argc, char *argv[])
     char nomes[50][50], nome[50];
     int n, mat = 0, aux = 0;
     float media, medias[50];
-    int i;
     n = le_alunos(matriculas, nomes);
     le_notas(medias, n);
     busca_mat(n, medias, nomes, argv[1]);
