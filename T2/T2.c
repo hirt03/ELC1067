@@ -44,6 +44,7 @@ void salva_nomes(int linhas, char** nomes, int mat_n[])
             i++;
         }
         nome[i] = '\0';
+        nomes[cont] = (char*)malloc((strlen(nome)+1)*sizeof(char));
         mat_n[cont] = mat;
         strcpy(nomes[cont], nome);
         cont++;
@@ -86,23 +87,7 @@ void busca_imprime(int linhas, char **nomes, float medias[], int mat_n[], int ma
     }
 }
 
-char alocar_nomes(int linhas)
-{
-    char **nomes;
-    int i;
-    nomes = (char**)malloc(linhas * sizeof(char*));
-    for(i=0;i<linhas;i++)
-    {
-        nomes[i] = (char*)malloc(50 * sizeof(char));
-    }
-    if(nomes == NULL)
-    {
-        printf("ta errado isso");
-    }
-    return nomes;
-}
-
-main()
+main(int argc, char *argv[])
 {
     int linhas, *mat_n, *mat_m, i;
     char **nomes;
@@ -111,15 +96,9 @@ main()
     mat_m = (int*)malloc(linhas*sizeof(int));
     float *medias = (float*)malloc(linhas*sizeof(float));
     nomes = (char**)malloc(linhas * sizeof(char*));
-    for(i=0;i<linhas;i++)
-    {
-        nomes[i] = (char*)malloc(50 * sizeof(char));
-    }
     salva_nomes(linhas, nomes, mat_n);
     salva_media(linhas, medias, mat_m);
-    char nome[50];
-    scanf("%s", &nome);
-    busca_imprime(linhas, nomes, medias, mat_n, mat_m, nome);
+    busca_imprime(linhas, nomes, medias, mat_n, mat_m, argv[1]);
     for(i=0;i<linhas;i++)
     {
         free(nomes[i]);
