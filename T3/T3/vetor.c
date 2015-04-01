@@ -41,7 +41,6 @@ void vetor_insere_carta(vetor_t *vet, int indice, carta c)
     int aux = 20, i;
 	if(indice > aux)
     {
-        vet = (struct vetor*)realloc(vet, indice*sizeof(struct vetor));
         for(i=aux;i<indice;i++)
         {
             vet->baralho[i] = (carta*)malloc(sizeof(carta));
@@ -54,14 +53,18 @@ void vetor_insere_carta(vetor_t *vet, int indice, carta c)
 
 carta vetor_remove_carta(vetor_t *vet, int indice)
 {
+    int i;
 	if(vet->baralho[indice]==NULL)
     {
         printf("ERRO NA REMOCAO");
         return NULL;
     }
-    vet->baralho[indice]=NULL;
+    for(i=indice;i<vet->n-1;i++)
+    {
+        vet->baralho[i]=vet->baralho[i+1];
+    }
 	vet->n--;
-	return NULL;
+	return vet->baralho[indice];
 }
 
 carta vetor_acessa_carta(vetor_t *vet, int indice)
@@ -77,6 +80,9 @@ carta vetor_acessa_carta(vetor_t *vet, int indice)
 
 bool vetor_valido(vetor_t *vet)
 {
-	/* TODO aqui */
+	if(vet != NULL)
+    {
+        return true;
+    }
 	return false;
 }
